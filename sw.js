@@ -1,5 +1,5 @@
 /* Re: SeaRch Service Worker（build_pwa.py が自動生成） */
-const VERSION = '5d4e3696088e';
+const VERSION = '12f12161f955';
 const CACHE = 're-search-' + VERSION;
 const FILES = [
   "./",
@@ -43,7 +43,11 @@ const FILES = [
 ];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));
+  // cache: 'reload' でブラウザのHTTPキャッシュを使わず、必ずサーバーから最新を取る
+  // （GitHub Pages は最大10分キャッシュされるため、これが無いと更新時に古いデータが保存される）
+  e.waitUntil(caches.open(CACHE)
+    .then((c) => c.addAll(FILES.map((u) => new Request(u, { cache: 'reload' }))))
+    .then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
