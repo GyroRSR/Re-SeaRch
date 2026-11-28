@@ -1,5 +1,5 @@
 /* Re: SeaRch Service Worker（build_pwa.py が自動生成） */
-const VERSION = '12f12161f955';
+const VERSION = '7173025b6563';
 const CACHE = 're-search-' + VERSION;
 const FILES = [
   "./",
